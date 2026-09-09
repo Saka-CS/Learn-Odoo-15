@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='portfolio_row_action' model='ir.actions.act_window'>
+        <field name="name">Portfolio Rows</field>
+        <field name="res_model">coins.portfolio_row</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="coins_portfolio_row_view_form" model="ir.ui.view">
+        <field name="name">Portfolio Row Form</field>
+        <field name="model">coins.portfolio_row</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="exchange_id"/>
+                    <field name="coin_id"/>
+                    <field name="amount"/>
+                    <field name="last_bought"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="coins_portfolio_row_view_tree" model="ir.ui.view">
+        <field name="name">Portfolio Row List</field>
+        <field name="model">coins.portfolio_row</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="exchange_id"/>
+                <field name="coin_id"/>
+                <field name="amount"/>
+                <field name="last_bought"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="coins_portfolio_row_view_search" model="ir.ui.view">
+        <field name="name">Portfolio Row Search</field>
+        <field name="model">coins.portfolio_row</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="exchange_id"/>
+                <field name="coin_id"/>
+                <field name="amount"/>
+                <field name="last_bought"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

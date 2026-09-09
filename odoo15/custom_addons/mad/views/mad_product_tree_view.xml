@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mad_product_tree_view" model="ir.ui.view">
+        <field name="name">mad.product.tree</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1" sample="1" duplicate="false">
+                <field name="sale_ok" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_currency_id" invisible="1"/>
+                <field name="name"/>
+                <field name="default_code" optional="show"/>
+                <field name="barcode" optional="show"/>
+                <field name="qty_available" optional="show"/>
+                <field name="uom_id" readonly="1" optional="show" groups="uom.group_uom"/>
+                <field name="list_price" widget='monetary' options="{'currency_field': 'currency_id'}" optional="show"/>
+                <field name="standard_price" widget='monetary' options="{'currency_field': 'cost_currency_id'}" optional="show" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

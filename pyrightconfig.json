@@ -1,0 +1,15 @@
+{
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.9",
+  "pythonPlatform": "Linux",
+  "typeCheckingMode": "basic",
+  "include": ["tutorials/tutorials/estate"],
+  "exclude": [".venv", "odoo15"],
+  "reportMissingModuleSource": "none",
+  "reportUnusedExpression": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportOperatorIssue": "none",
+  "reportArgumentType": "none",
+  "reportIndexIssue": "none"
+}

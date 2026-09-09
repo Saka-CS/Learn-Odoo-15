@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_mad_stok_stok_hizmet_action" model="ir.actions.act_window">
+        <field name="name">Stok/Hizmet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('mad_template_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('mad_product_form_view')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Haydi ilk stoğumuzu oluşturalım!
+            </p>
+        </field>
+    </record>
+
+    <record id="menu_mad_stok_depo_action" model="ir.actions.act_window">
+        <field name="name">Depo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Haydi ilk depomuzu oluşturalım!
+            </p>
+        </field>
+    </record>
+
+    <record id="menu_mad_stok_cesit_action" model="ir.actions.act_window">
+        <field name="name">Stok/Hizmet Çeşitleri</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('mad_product_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('mad_product_form_view')})]"/>
+    </record>
+
+    <record id="mad_product_tag_search_view" model="ir.ui.view">
+        <field name="name">mad.product.tag.search</field>
+        <field name="model">mad.product.tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <!--field name="parent_id" operator="child_of" /-->
+                <separator />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="menu_mad_product_tag_action" model="ir.actions.act_window">
+        <field name="name">Etiketler</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mad.product.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mad_product_tag_search_view" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Yeni bir stok/hizmet etiketi için tıklayın.
+            </p>
+            <p>
+                With product tags you can categorize your products
+                regardless of the category they belong to.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mad_stok_hizmet_main"
+              name="Stok"
+              sequence="10"
+    />
+
+    <menuitem id="menu_mad_stok_hizmet_kartlar"
+              name="Kartlar"
+              parent="menu_mad_stok_hizmet_main"
+              sequence="1"
+    />
+
+    <menuitem id="menu_mad_stok_stok_hizmet"
+              name="Stok/Hizmet"
+              parent="menu_mad_stok_hizmet_kartlar"
+              action="menu_mad_stok_stok_hizmet_action"
+              sequence="1"
+    />
+
+    <menuitem id="menu_mad_stok_stok_hizmet_cesitleri"
+              name="Stok/Hizmet Çeşitleri"
+              parent="menu_mad_stok_hizmet_kartlar"
+              action="menu_mad_stok_cesit_action"
+              sequence="2"
+    />
+
+    <menuitem id="menu_mad_stok_depo"
+              name="Depolar"
+              parent="menu_mad_stok_hizmet_kartlar"
+              action="menu_mad_stok_depo_action"
+              sequence="3"
+    />
+
+    <menuitem id="menu_mad_product_tag"
+              name="Etiketler"
+              parent="menu_mad_stok_hizmet_kartlar"
+              action="menu_mad_product_tag_action"
+              sequence="4"
+    />
+
+    <menuitem id="menu_mad_stok_hizmet_hareketler"
+              name="Hareketler"
+              parent="menu_mad_stok_hizmet_main"
+              sequence="2"
+    />
+
+    <menuitem id="menu_mad_stok_hizmet_listeler"
+              name="Listeler"
+              parent="menu_mad_stok_hizmet_main"
+              sequence="3"
+    />
+
+    <menuitem id="menu_mad_stok_hizmet_raporlar"
+              name="Raporlar"
+              parent="menu_mad_stok_hizmet_main"
+              sequence="4"
+    />
+</odoo>

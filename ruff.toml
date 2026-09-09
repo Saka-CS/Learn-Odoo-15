@@ -1,0 +1,28 @@
+target-version = "py39"
+line-length = 120
+
+exclude = [
+    ".venv",
+    ".ruff_cache",
+    "odoo15/odoo",
+    "odoo15/addons",
+    "odoo15/setup",
+    "odoo15/doc",
+    "odoo15/debian",
+  "odoo15/setup.py",
+  "odoo15/odoo-bin"
+]
+
+[lint]
+select = ["E", "F", "I", "Q"]
+
+[lint.per-file-ignores]
+"**/__init__.py" = ["F401"]
+
+
+[lint.flake8-quotes]
+inline-quotes = "single"
+
+[format]
+quote-style = "single"
+

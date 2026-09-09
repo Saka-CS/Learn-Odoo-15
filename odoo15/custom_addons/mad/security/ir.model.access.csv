@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mad_product_product,access.mad.product.product,model_mad_product_product,,1,1,1,1
+access_mad_product_template,access.mad.product.template,model_mad_product_template,,1,1,1,1
+access_mad_product_tag,access.mad.product.tag,model_mad_product_tag,,1,1,1,1

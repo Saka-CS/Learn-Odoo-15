@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres2
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    # optional: expose for pgAdmin/DBeaver (uncomment if port 5432 is free locally)
+    ports:
+      - "5432:5432"
+
+  odoo:
+    image: odoo:15
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./tutorials:/mnt/tutorial-addons
+      - ./odoo15/custom_addons:/mnt/custom-addons
+    command: odoo -c /etc/odoo/odoo.conf
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    ports:
+      - "5050:80" # pgAdmin web UI on http://localhost:5050
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin # persists saved server connections
+    restart: unless-stopped
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+  pgadmin-data:

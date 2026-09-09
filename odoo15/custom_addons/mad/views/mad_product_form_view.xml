@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mad_product_form_view" model="ir.ui.view">
+        <field name="name">mad.product.form</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <form string="Stok/Hizmet">
+                <header>
+                    <button string="Etiketleri Yazdır" type="object" name="action_open_label_layout"/>
+                </header>
+                <sheet>
+                    <field name="product_variant_count" invisible="1"/>
+                    <field name="is_product_variant" invisible="1"/>
+                    <field name="attribute_line_ids" invisible="1"/>
+                    <field name="type" invisible="1"/>
+                    <field name="show_on_hand_qty_status_button" invisible="1" modifiers="{&quot;invisible&quot;: true, &quot;readonly&quot;: true}"/>
+                    <field name="show_forecasted_qty_status_button" invisible="1" modifiers="{&quot;invisible&quot;: true, &quot;readonly&quot;: true}"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_open_quants" class="oe_stat_button" icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value" widget="statinfo">
+                                    <field name="qty_available" widget="statinfo" nolabel="1" class="mr4" modifiers="{&quot;readonly&quot;: true}"/>
+                                    <field name="uom_name" modifiers="{&quot;readonly&quot;: true}"/>
+                                </span>
+                                <span class="o_stat_text">Eldeki</span>
+                            </div>
+                        </button>
+                        <button name="139" type="action" icon="fa-sitemap" class="oe_stat_button" attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}" modifiers="{&quot;invisible&quot;: [[&quot;product_variant_count&quot;, &quot;&lt;=&quot;, 1]]}">
+                            <field string="Çeşitler" name="product_variant_count" widget="statinfo" modifiers="{&quot;readonly&quot;: true}"/>
+                        </button>
+                        <button class="oe_stat_button" name="open_pricelist_rules" icon="fa-list-ul" groups="product.group_product_pricelist" type="object">
+                               <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="pricelist_item_count"/>
+                                    </span>
+                                    <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+                                        Fiyatlar
+                                    </span>
+                                    <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+                                        Fiyat
+                                    </span>
+                               </div>
+                        </button>
+                        <button type="object"
+                            name= "action_view_stock_move_lines"
+                            class="oe_stat_button" icon="fa-exchange"
+                            groups="stock.group_stock_user">
+                            <div class="o_field_widget o_stat_info mr4">
+                                <span class="o_stat_text">Giriş:</span>
+                                <span class="o_stat_text">Çıkış:</span>
+                            </div>
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="nbr_moves_in"/></span>
+                                <span class="o_stat_value"><field name="nbr_moves_out"/></span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Son 1 yıldaki satış" groups="sales_team.group_sale_salesman">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">Satıldı</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" name="action_view_po" type="object" icon="fa-credit-card" help="Son 1 yıldaki satınalma">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">Alındı</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name" string="Stok/Hizmet Adı"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field name="priority" widget="priority" class="mr-3"/>
+                                <field class="o_text_overflow" name="name" placeholder="Ör. 6'lı Yemek Takımı"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <style>
+                        div[name="options"] .o_field_boolean {
+                            margin-left: 10px;
+                            margin-right: 0px;
+                        }
+                    </style>
+                    <notebook>
+                        <page string="Genel Bilgi" name="general_information">
+                            <group>
+                                <group name="group_general">
+                                    <field name="detailed_type"/>
+                                    <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="gtipno"/>
+                                    <button string="GTİP Arama" type="object" name="action_gtip_no_linki"
+                                            style="background-color: rgba(113, 99, 158, 0.6);
+                                                   border: 2px solid rgb(113, 99, 158);"/>
+                                </group>
+                                <group name="codes">
+                                    <field name="default_code"/>
+                                    <field name="barcode"/>
+                                    <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                                </group>
+                            </group>
+                            <group string="Şirket İçi Notlar">
+                                <field name="description" nolabel="1" placeholder="Bu not sadece şirket içi iletişim içindir."/>
+                            </group>
+                        </page>
+                        <page name="variants" string="Özellikler ve Çeşitler" groups="product.group_product_variant">
+                            <field name="attribute_line_ids" widget="one2many" context="{'show_attribute': False}">
+                                <tree string="Çeşitler" editable="bottom" decoration-info="value_count &lt;= 1">
+                                    <field name="value_count" invisible="1"/>
+                                    <field name="attribute_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                    <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}" context="{'default_attribute_id': attribute_id, 'show_attribute': False}"/>
+                                    <button string="Yapılandır" class="float-right btn-secondary" type="object" name="action_open_attribute_values" groups="product.group_product_variant"/>
+                                </tree>
+                            </field>
+                            <p class="oe_grey oe_edit_only">
+                                <strong>Dikkat</strong>: özellik ekleyip çıkarmak mevcut özellik ve
+                                çeşitleri silip tekrar oluşturur, bu özelliklerden
+                                türeyen özelleştirmeleri kaybetmenize neden olabilir.
+                            </p>
+                        </page>
+                        <page string="Satış" name="sales">
+                            <group name="sale">
+                                <field name="list_price" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                <field name="taxes_id" widget="many2many_tags" />
+                            </group>
+                            <group string="Satış Açıklama" name="description">
+                                <field name="description_sale" nolabel="1" placeholder="Bu not satış sipariş ve faturalarına eklenir."/>
+                            </group>
+                        </page>
+                        <page string="Satınalma" name="purchase">
+                            <group name="purchase" colspan="4">
+                                <field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" nolabel="1" attrs="{'invisible': [('product_variant_count','&gt;',1)], 'readonly': [('product_variant_count','&gt;',1)]}"/>
+                            </group>
+                            <group>
+                                <field name="variant_seller_ids" context="{'model': active_model, 'active_id': active_id, 'tree_view_ref':'purchase.product_supplierinfo_tree_view2'}" nolabel="1" attrs="{'invisible': [('product_variant_count','&lt;=',1)], 'readonly': [('product_variant_count','&lt;=',1)]}"/>
+                            </group>
+                            <group string="Tedarikçi Faturaları" name="bill">
+                                <field name="supplier_taxes_id" widget="many2many_tags"/>
+                            </group>
+                            <group string="Satınalma Açıklaması">
+                               <field name="description_purchase" nolabel="1" placeholder="Bu not satınalma siparişlerine eklenir."/>
+                            </group>
+                        </page>
+                        <page string="Envanter" name="inventory" groups="product.group_stock_packaging">
+                            <group name="inventory">
+                                <group name="group_lots_and_weight" string="Lojistik">
+                                    <label for="weight" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div class="o_row" name="weight" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="weight"/>
+                                        <span><field name="weight_uom_name"/></span>
+                                    </div>
+                                    <label for="volume" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div class="o_row" name="volume" attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="volume" string="Volume"/>
+                                        <span><field name="volume_uom_name"/></span>
+                                    </div>
+                                </group>
+                            </group>
+                            <group name="packaging" string="Paketleme" colspan="4" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}" groups="product.group_stock_packaging">
+                                <field name="packaging_ids" nolabel="1" context="{'tree_view_ref':'product.product_packaging_tree_view2'}"/>
+                            </group>
+                            <group>
+                                <group string="Alımlar İçin Açıklama">
+                                    <field name="description_pickingin" nolabel="1" placeholder="Bu not mal kabul hareketlerine eklenir(ör. depoda nereye konulmalı)."/>
+                                </group>
+                                <group string="Teslimatlar İçin Açıklama">
+                                    <field name="description_pickingout" nolabel="1" placeholder="Bu not teslimat emirlerine eklenir."/>
+                                </group>
+                                <group string="Depo Transferleri İçin Açıklama" groups="stock.group_stock_multi_locations">
+                                    <field name="description_picking" placeholder="Bu not depo transferlerine eklenir." nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" modifiers="{}"/>
+                    <field name="activity_ids" modifiers="{}"/>
+                    <field name="message_ids" modifiers="{}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

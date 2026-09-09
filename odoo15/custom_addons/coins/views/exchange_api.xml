@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='exchange_api_action' model='ir.actions.act_window'>
+        <field name="name">Exchange APIs</field>
+        <field name="res_model">coins.exchange_api</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Coin Trading" id="coins_base_menu" />
+    <menuitem name="Exchange APIs" id="coins_exchange_api_menu" parent="coins_base_menu" action="exchange_api_action"/>
+
+    <!-- Form View -->
+    <record id="coins_exchange_api_view_form" model="ir.ui.view">
+        <field name="name">Exchange API Form</field>
+        <field name="model">coins.exchange_api</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="exchange_id"/>
+                    <field name="api_key"/>
+                    <field name="secret_key"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="coins_exchange_api_view_tree" model="ir.ui.view">
+        <field name="name">Exchange API List</field>
+        <field name="model">coins.exchange_api</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="coins_exchange_api_view_search" model="ir.ui.view">
+        <field name="name">Exchange API Search</field>
+        <field name="model">coins.exchange_api</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

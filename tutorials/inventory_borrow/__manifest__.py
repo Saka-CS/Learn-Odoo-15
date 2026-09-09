@@ -1,0 +1,10 @@
+{
+    'name': 'Employee Inventory Borrowing',
+    'version': '15.0.1.0.0',
+    'summary': 'Allow employees to borrow inventory items',
+    'author': 'saka404',
+    'installable': True,
+    'application': False,
+    'depends': ['stock', 'hr'],
+    'data': [],
+}
