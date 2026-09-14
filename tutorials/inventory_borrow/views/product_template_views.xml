@@ -16,13 +16,3 @@
     </field>
   </record>
 </odoo>
-<!-- <div name="options" groups="base.group_user"> -->
-<!--     <span class="d-inline-block"> -->
-<!--         <field name="sale_ok"/> -->
-<!--         <label for="sale_ok"/> -->
-<!--     </span> -->
-<!--     <span class="d-inline-block"> -->
-<!--         <field name="purchase_ok"/> -->
-<!--         <label for="purchase_ok"/> -->
-<!--     </span> -->
-<!-- </div> -->

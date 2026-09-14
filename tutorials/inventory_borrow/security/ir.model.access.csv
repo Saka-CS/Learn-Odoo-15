@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inventory_borrow.access_borrow_request,access_borrow_request,inventory_borrow.model_borrow_request,base.group_user,1,1,1,1

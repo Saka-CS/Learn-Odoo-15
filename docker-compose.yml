@@ -26,7 +26,7 @@ services:
       - ./config:/etc/odoo
       - ./tutorials:/mnt/tutorial-addons
       - ./odoo15/custom_addons:/mnt/custom-addons
-    command: odoo -c /etc/odoo/odoo.conf
+    command: odoo --dev=reload,xml,qweb -c /etc/odoo/odoo.conf -d postgres2 -u inventory_borrow
 
   pgadmin:
     image: dpage/pgadmin4
