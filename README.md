@@ -1,3 +1,4 @@
+docker compose down && docker compose up
 docker compose run --rm odoo odoo -c /etc/odoo/odoo.conf -d postgres2 -u --stop-after-init
 docker compose logs -f odoo
 

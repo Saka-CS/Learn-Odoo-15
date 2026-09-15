@@ -36,6 +36,10 @@ class BorrowRequest(models.Model):
         readonly=True,
     )
 
+    borrow_date = fields.Datetime(string='Borrow Date')
+    expected_return_date = fields.Datetime(string='Expected Return Date')
+    return_date = fields.Datetime(string='The date the item was returned', readonly=True)
+
     @api.constrains('product_id')
     def _check_product_can_be_borrowed(self):
         for record in self:
