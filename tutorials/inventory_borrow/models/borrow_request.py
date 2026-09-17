@@ -69,8 +69,8 @@ class BorrowRequest(models.Model):
 
         records = super().create(vals_list)
 
-        for record in records:
-            record.picking_id = record._create_picking()
+        # for record in records:
+        #     record.picking_id = record._create_picking()
         return records
 
     def write(self, vals):
@@ -81,10 +81,24 @@ class BorrowRequest(models.Model):
                     continue
 
                 allowed_state_changes = self._TRANSITIONS.get(record.state) or set()
-
                 if new_state not in allowed_state_changes:
                     raise UserError(_('Can not move from %s to %s') % (record.state, vals['state']))
-        return super().write(vals)
+
+            res = super().write(vals)
+            if 'state' in vals:
+                for record in self:
+                    if record.state == 'borrowed' and not record.picking_id:
+                        record.picking_id = record._create_picking(is_return=False)
+                    elif record.state == 'completed' and not record.return_picking_id:
+                        record.return_picking_id = record._create_picking(is_return=True)
+            return res
+
+        #         if new_state == 'borrowed':
+        #             self._create_picking()
+        #         elif new_state in {'borrowed', 'completed'}:
+        #             self._create_picking(True)
+        #
+        # return super().write(vals)
 
     def _create_picking(self, is_return=False):
         for record in self:
