@@ -8,6 +8,8 @@
     'application': False,
     'depends': ['stock', 'hr'],
     'data': [
+        'data/stock_location_data.xml',
+        'data/ir_sequence_data.xml',
         'security/ir.model.access.csv',
         'views/product_template_views.xml',
         'views/borrow_request.xml',
