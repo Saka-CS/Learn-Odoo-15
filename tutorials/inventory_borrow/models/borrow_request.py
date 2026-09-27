@@ -130,12 +130,22 @@ class BorrowRequest(models.Model):
                 'location_id': src_location.id,
                 'location_dest_id': dest_location.id,
             }
-            self.env['stock.move'].create(move_vals)
+
+            avail = record.env['stock.quant']._get_available_quantity(record.product_id, src_location)
+            if avail < record.quantity:
+                raise UserError(_('Not enough on hand.'))
+
+            move = record.env['stock.move'].create(move_vals)
 
             picking.action_confirm()
-            picking.button_validate()
+            picking.action_assign()
+            move.quantity_done = record.quantity
+            res = picking.button_validate()
 
-            return picking
+            if isinstance(res, dict):
+                raise UserError(_('Could not validate %s automatically, please validate manually.') % picking.name)
+
+        return picking
 
     @api.constrains('product_id')
     def _check_product_can_be_borrowed(self):

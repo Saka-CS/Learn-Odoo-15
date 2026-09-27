@@ -3,8 +3,8 @@
   <data noupdate="1">
     <record id="location_employee_borrowed" model="stock.location">
       <field name="name">Employee Borrowed Items</field>
-      <field name="usage">internal</field>
-      <field name="location_id" ref="stock.stock_location_stock" />
+      <field name="usage">customer</field>
+      <field name="location_id" ref="stock.stock_location_customers" />
       <field name="company_id" ref="base.main_company" />
     </record>
   </data>
